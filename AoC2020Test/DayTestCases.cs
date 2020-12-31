@@ -29,5 +29,13 @@ namespace AoC2020Test
             Assert.AreEqual(216, d.SimpleTreeCount());
             Assert.AreEqual(6708199680, d.TreeCountProduct());
         }
+
+        [TestMethod]
+        public void Day04()
+        {
+            var d = new Day04();
+            Assert.AreEqual(226, d.SimpleValidCount());
+            Assert.AreEqual(160, d.ComplexVaidCount());
+        }
     }
 }
