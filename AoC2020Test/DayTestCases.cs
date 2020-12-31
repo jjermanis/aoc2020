@@ -21,5 +21,13 @@ namespace AoC2020Test
             Assert.AreEqual(643, d.ValidPasswordCount());
             Assert.AreEqual(388, d.ValidPasswordCountV2());
         }
+
+        [TestMethod]
+        public void Day03()
+        {
+            var d = new Day03();
+            Assert.AreEqual(216, d.SimpleTreeCount());
+            Assert.AreEqual(6708199680, d.TreeCountProduct());
+        }
     }
 }
