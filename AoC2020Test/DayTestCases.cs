@@ -37,5 +37,13 @@ namespace AoC2020Test
             Assert.AreEqual(226, d.SimpleValidCount());
             Assert.AreEqual(160, d.ComplexVaidCount());
         }
+
+        [TestMethod]
+        public void Day05()
+        {
+            var d = new Day05();
+            Assert.AreEqual(959, d.MaxSeatID());
+            Assert.AreEqual(527, d.MySeatID());
+        }
     }
 }
