@@ -110,14 +110,12 @@ namespace AoC2020
                 return false;
             var value = int.Parse(height[..^2]);
             var units = height[^2..];
-            switch (units)
+            return units switch
             {
-                case "in":
-                    return value >= 59 && value <= 76;
-                case "cm":
-                    return value >= 150 && value <= 193;
-            }
-            return false;
+                "in" => value >= 59 && value <= 76,
+                "cm" => value >= 150 && value <= 193,
+                _ => false
+            };
         }
 
         private bool ValidateHair(string color)
