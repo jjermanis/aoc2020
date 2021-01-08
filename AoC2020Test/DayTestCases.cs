@@ -45,5 +45,13 @@ namespace AoC2020Test
             Assert.AreEqual(959, d.MaxSeatID());
             Assert.AreEqual(527, d.MySeatID());
         }
+
+        [TestMethod]
+        public void Day06()
+        {
+            var d = new Day06();
+            Assert.AreEqual(6457, d.QuestionsSumAnyone());
+            Assert.AreEqual(3260, d.QuestionsSumEveryone());
+        }
     }
 }
