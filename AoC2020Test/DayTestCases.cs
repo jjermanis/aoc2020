@@ -53,5 +53,12 @@ namespace AoC2020Test
             Assert.AreEqual(6457, d.QuestionsSumAnyone());
             Assert.AreEqual(3260, d.QuestionsSumEveryone());
         }
+
+        [TestMethod]
+        public void Day07()
+        {
+            var d = new Day07();
+            Assert.AreEqual(326, d.CanContainShinyGoldBagCount());
+        }
     }
 }
