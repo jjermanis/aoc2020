@@ -24,8 +24,8 @@ namespace AoC2020
 
         public void Do()
         {
-            Console.WriteLine($"ShinyGoldBagCount: {CanContainShinyGoldBagCount()}");
-            //Console.WriteLine($"QuestionsSumEveryone: {QuestionsSumEveryone()}");
+            Console.WriteLine($"CanContainShinyGoldBagCount: {CanContainShinyGoldBagCount()}");
+            Console.WriteLine($"BagsInsideShinyGoldBagCount: {BagsInsideShinyGoldBagCount()}");
         }
 
         public int CanContainShinyGoldBagCount()
@@ -45,6 +45,24 @@ namespace AoC2020
             return result;
         }
 
+        public int BagsInsideShinyGoldBagCount() => 
+            InnerBagCount(SHINY_GOLD);
+
+        public int InnerBagCount(string name)
+        {
+            var result = 0;
+
+            var bag = _bags[name];
+            foreach (var child in bag.Bags)
+            {
+                // Counted the contained bags...
+                result += child.Value * InnerBagCount(child.Key);
+                // And the bags themselves
+                result += child.Value;
+            }
+            return result;
+        }
+
         private bool HasGoldBag(string bagName)
         {
             if (_memo.ContainsKey(bagName))
@@ -57,7 +75,7 @@ namespace AoC2020
             }
 
             var bag = _bags[bagName];
-            foreach (var child in bag.Bags)
+            foreach (var child in bag.Bags.Keys)
             {
                 if (HasGoldBag(child))
                 {
@@ -85,7 +103,7 @@ namespace AoC2020
                 var currBag = new Bag() 
                 { 
                     Color = color,
-                    Bags = new List<string>()
+                    Bags = new Dictionary<string, int>()
                 };
 
                 while (true)
@@ -97,7 +115,7 @@ namespace AoC2020
                     var bagColor = nextResults[0].Groups[2].Value;
                     bags = nextResults[0].Groups[3].Value.Trim();
 
-                    currBag.Bags.Add(bagColor);
+                    currBag.Bags.Add(bagColor, count);
                 }
 
                 result.Add(color, currBag);
@@ -109,6 +127,6 @@ namespace AoC2020
     class Bag
     {
         public string Color { get; set; }
-        public List<String> Bags { get; set; }
+        public IDictionary<string, int> Bags { get; set; }
     }
 }

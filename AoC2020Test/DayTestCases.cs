@@ -59,6 +59,7 @@ namespace AoC2020Test
         {
             var d = new Day07();
             Assert.AreEqual(326, d.CanContainShinyGoldBagCount());
+            Assert.AreEqual(5635, d.BagsInsideShinyGoldBagCount());
         }
     }
 }
