@@ -61,5 +61,12 @@ namespace AoC2020Test
             Assert.AreEqual(326, d.CanContainShinyGoldBagCount());
             Assert.AreEqual(5635, d.BagsInsideShinyGoldBagCount());
         }
+
+        [TestMethod]
+        public void Day08()
+        {
+            var d = new Day08();
+            Assert.AreEqual(1744, d.AccumulatorAfterRepeatedInstruction());
+        }
     }
 }
