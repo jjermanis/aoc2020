@@ -67,6 +67,7 @@ namespace AoC2020Test
         {
             var d = new Day08();
             Assert.AreEqual(1744, d.AccumulatorAfterRepeatedInstruction());
+            Assert.AreEqual(1174, d.AccumulatorForTerminatingProgram());
         }
     }
 }

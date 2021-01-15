@@ -19,6 +19,7 @@ namespace AoC2020
         public void Do()
         {
             Console.WriteLine($"AccumulatorAfterRepeatedInstruction: {AccumulatorAfterRepeatedInstruction()}");
+            Console.WriteLine($"AccumulatorForTerminatingProgram: {AccumulatorForTerminatingProgram()}");
         }
 
         public long AccumulatorAfterRepeatedInstruction()
@@ -34,6 +35,51 @@ namespace AoC2020
                 pcs.Add(gc.ProgramCounter);
                 gc.Step();
             }
+        }
+
+        public long AccumulatorForTerminatingProgram()
+        {
+            var gc = new GameConsole(_data);
+            for (int i=0; i < gc.Instructions.Count; i++)
+            {
+                var currInst = gc.Instructions[i];
+                var currOp = currInst.Operation;
+                if (currOp == Operation.jmp || currOp == Operation.nop)
+                {
+                    FlipOp(gc, i);
+                    gc.Reset();
+                    if (DoesProgramTerminate(gc))
+                        return gc.Accumulator;
+                    FlipOp(gc, i);
+                }
+            }
+            throw new Exception("No program found that terminates");
+        }
+
+        private bool DoesProgramTerminate(GameConsole gc)
+        {
+            var pcs = new HashSet<int>();
+            while (true)
+            {
+                if (pcs.Contains(gc.ProgramCounter))
+                    return false;
+                pcs.Add(gc.ProgramCounter);
+                gc.Step();
+                if (gc.IsTerminated)
+                    return true;
+            }
+        }
+
+        private void FlipOp(GameConsole gc, int index)
+        {
+            var op = gc.Instructions[index].Operation;
+            var newOp = op switch
+            {
+                Operation.nop => Operation.jmp,
+                Operation.jmp => Operation.nop,
+                _ => throw new Exception($"Unexpected operation: {op}")
+            };
+            gc.Instructions[index].Operation = newOp;
         }
     }
 }

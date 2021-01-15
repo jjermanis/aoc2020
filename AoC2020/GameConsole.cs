@@ -5,19 +5,19 @@ namespace AoC2020
 {
     public class GameConsole
     {
-        private readonly List<Instruction> _program;
-
         public GameConsole(IEnumerable<string> data)
         {
-            _program = new List<Instruction>();
+            Instructions = new List<Instruction>();
             foreach (var instruction in data)
-                _program.Add(new Instruction(instruction));
+                Instructions.Add(new Instruction(instruction));
 
             Reset();
         }
 
+        public IList<Instruction> Instructions { get; set; }
         public long Accumulator { get; set; }
         public int ProgramCounter { get; set; }
+        public bool IsTerminated { get => ProgramCounter == Instructions.Count; }
 
         public void Reset()
         {
@@ -27,7 +27,10 @@ namespace AoC2020
 
         public void Step()
         {
-            var instruction = _program[ProgramCounter];
+            if (IsTerminated)
+                throw new Exception("Program terminated");
+
+            var instruction = Instructions[ProgramCounter];
             switch (instruction.Operation)
             {
                 case Operation.acc:
@@ -46,14 +49,14 @@ namespace AoC2020
         }
     }
     
-    enum Operation
+    public enum Operation
     {
         nop,
         acc,
         jmp
     }
 
-    class Instruction
+    public class Instruction
     {
         public Instruction(string instruction)
         {
