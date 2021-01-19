@@ -77,5 +77,13 @@ namespace AoC2020Test
             Assert.AreEqual(69316178, d.InvalidNumber());
             Assert.AreEqual(9351526, d.EncryptionWeakness(69316178));
         }
+
+        [TestMethod]
+        public void Day10()
+        {
+            var d = new Day10();
+            Assert.AreEqual(2040, d.JoltageDifferenceProduct());
+            Assert.AreEqual(28346956187648, d.PossibleCombinations());
+        }
     }
 }
