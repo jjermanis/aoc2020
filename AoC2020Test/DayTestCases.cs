@@ -69,5 +69,13 @@ namespace AoC2020Test
             Assert.AreEqual(1744, d.AccumulatorAfterRepeatedInstruction());
             Assert.AreEqual(1174, d.AccumulatorForTerminatingProgram());
         }
+
+        [TestMethod]
+        public void Day09()
+        {
+            var d = new Day09();
+            Assert.AreEqual(69316178, d.InvalidNumber());
+            Assert.AreEqual(9351526, d.EncryptionWeakness(69316178));
+        }
     }
 }
