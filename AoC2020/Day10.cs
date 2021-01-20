@@ -88,6 +88,5 @@ namespace AoC2020
             }
             return result;
         }
-
     }
 }

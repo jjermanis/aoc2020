@@ -1,5 +1,5 @@
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using AoC2020;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace AoC2020Test
 {
