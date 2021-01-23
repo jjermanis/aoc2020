@@ -85,5 +85,12 @@ namespace AoC2020Test
             Assert.AreEqual(2040, d.JoltageDifferenceProduct());
             Assert.AreEqual(28346956187648, d.PossibleCombinations());
         }
+
+        [TestMethod]
+        public void Day11()
+        {
+            var d = new Day11();
+            Assert.AreEqual(2346, d.StabalizedSeatCount());
+        }
     }
 }
