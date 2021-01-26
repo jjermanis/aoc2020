@@ -90,7 +90,8 @@ namespace AoC2020Test
         public void Day11()
         {
             var d = new Day11();
-            Assert.AreEqual(2346, d.StabalizedSeatCount());
+            Assert.AreEqual(2346, d.StabalizedNeighborSeatCount());
+            Assert.AreEqual(2111, d.StabalizedVisibleSeatCount());
         }
     }
 }

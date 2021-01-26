@@ -23,15 +23,26 @@ namespace AoC2020
 
         public void Do()
         {
-            Console.WriteLine($"StabalizedSeatCount: {StabalizedSeatCount()}");
+            Console.WriteLine($"StabalizedNeighborSeatCount: {StabalizedNeighborSeatCount()}");
+            Console.WriteLine($"StabalizedVisibleSeatCount: {StabalizedVisibleSeatCount()}");
         }
 
-        public int StabalizedSeatCount()
+        public int StabalizedNeighborSeatCount() =>
+            StabalizedSeatCount(NeighborCount, 4);
+
+        public int StabalizedVisibleSeatCount() =>
+            StabalizedSeatCount(VisibleCount, 5);
+
+        private int StabalizedSeatCount(
+            Func<Layout, int, int, int> SeatCount,
+            int seatLimit)
         {
             var grid = InitLayout();
 
             while (grid.IsStable != true)
-                grid = RunRound(grid);
+            {
+                grid = RunRound(grid, SeatCount, seatLimit);
+            }
 
             var result = 0;
             foreach (var seat in grid.Positions.Values)
@@ -40,7 +51,10 @@ namespace AoC2020
             return result;
         }
 
-        private Layout RunRound(Layout layout)
+        private Layout RunRound(
+            Layout layout,
+            Func<Layout, int, int, int> SeatCount,
+            int seatLimit)
         {
             var newLayout = new Layout()
             {
@@ -56,11 +70,11 @@ namespace AoC2020
                 var curr = layout.Positions[(x, y)];
                 if (curr == FLOOR)
                     continue;
-                var neighbors = NeighborCount(layout, x, y);
+                var neighbors = SeatCount(layout, x, y);
                 var next = curr switch
                 {
                     EMPTY => neighbors == 0 ? OCCUPIED : EMPTY,
-                    OCCUPIED => neighbors >= 4 ? EMPTY : OCCUPIED,
+                    OCCUPIED => neighbors >= seatLimit ? EMPTY : OCCUPIED,
                     _ => throw new Exception($"Unexpected value: {curr}")
                 };
                 if (curr != next)
@@ -84,6 +98,52 @@ namespace AoC2020
             return result;
         }
 
+        private int VisibleCount(Layout layout, int x, int y)
+        {
+            var result = 0;
+            for (int vx = -1; vx <= 1; vx++)
+                for (int vy = -1; vy <= 1; vy++)
+                {
+                    if (vx == 0 && vy == 0)
+                        continue;
+
+                    var t = 0;
+                    while (true)
+                    {
+                        t++;
+                        var nx = x + (t * vx);
+                        var ny = y + (t * vy);
+
+                        if (nx < 0 || ny < 0 || nx > layout.Width || ny > layout.Height)
+                            break;
+                        if (!layout.Positions.ContainsKey((nx, ny)))
+                            continue;
+                        if (layout.Positions[(nx, ny)] == OCCUPIED)
+                            result++;
+                        break;
+                    }
+                }
+            return result;
+        }
+
+        private void PrintLayout(Layout layout)
+        {
+            Console.WriteLine("==========");
+            for (var y = 0; y < layout.Height; y++)
+            {
+                for (var x = 0; x < layout.Width; x++)
+                {
+                    char curr;
+                    if (layout.Positions.ContainsKey((x, y)))
+                        curr = layout.Positions[(x, y)];
+                    else
+                        curr = '.';
+                    Console.Write(curr);
+                }
+                Console.WriteLine();
+            }
+        }
+
         private Layout InitLayout()
         {
             var layout = new Layout()
@@ -98,7 +158,7 @@ namespace AoC2020
                 {
                     var curr = _data[row][col];
                     if (curr != FLOOR)
-                        layout.Positions[(row, col)] = curr;
+                        layout.Positions[(col, row)] = curr;
                 }
 
             return layout;
