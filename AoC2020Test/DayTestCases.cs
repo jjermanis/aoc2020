@@ -93,5 +93,12 @@ namespace AoC2020Test
             Assert.AreEqual(2346, d.StabalizedNeighborSeatCount());
             Assert.AreEqual(2111, d.StabalizedVisibleSeatCount());
         }
+
+        [TestMethod]
+        public void Day12()
+        {
+            var d = new Day12();
+            Assert.AreEqual(2280, d.NavigationDistancePart1());
+        }
     }
 }
