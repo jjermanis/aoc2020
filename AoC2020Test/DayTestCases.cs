@@ -99,6 +99,7 @@ namespace AoC2020Test
         {
             var d = new Day12();
             Assert.AreEqual(2280, d.NavigationDistancePart1());
+            Assert.AreEqual(38693, d.NavigationDistancePart2());
         }
     }
 }
