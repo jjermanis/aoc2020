@@ -101,5 +101,13 @@ namespace AoC2020Test
             Assert.AreEqual(2280, d.NavigationDistancePart1());
             Assert.AreEqual(38693, d.NavigationDistancePart2());
         }
+
+        [TestMethod]
+        public void Day13()
+        {
+            var d = new Day13();
+            Assert.AreEqual(174, d.EarliestBusProduct());
+            Assert.AreEqual(780601154795940L, d.SynchDepatureTime());
+        }
     }
 }
